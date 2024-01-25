@@ -17,35 +17,43 @@ int cell::y() const { return _y; }
 
 // SHNAKE
 
-shnake::shnake() : _head(cell(20, 20, cell_of::SHNAKE)), _tail(std::vector<cell>()) {}
+shnake::shnake() : _speed(4), _head(cell(20, 20, cell_of::SHNAKE)), _tail(std::vector<cell>()) {}
 
-bool shnake::move(direction dir) {
+bool shnake::move() {
     int dx = 0, dy = 0, tx = _head.x(), ty = _head.y();
-    if (dir == direction::LEFT) {
+    if (_dir == direction::LEFT) {
         dy = -1;
-    } else if (dir == direction::RIGHT) {
+    } else if (_dir == direction::RIGHT) {
         dy = 1;   
-    } else if (dir == direction::UP) {
+    } else if (_dir == direction::UP) {
         dx = -1;
-    } else if (dir == direction::DOWN) {
+    } else if (_dir == direction::DOWN) {
         dx = 1;
     } else {
         return false;
     }
     
     _head.xy(tx + dx, ty + dy);
-    // for (auto i = _tail.begin(); i < _tail.end(); ++i) {
-    //     int ttx = (*i).x(); int tty = (*i).y();
-    //     (*i).xy(tx, ty);
-    //     tx = ttx; ty = tty;
-    // }
+    for (auto i = _tail.begin(); i < _tail.end(); ++i) {
+        int ttx = (*i).x(); int tty = (*i).y();
+        (*i).xy(tx, ty);
+        tx = ttx; ty = tty;
+    }
     return true;
 }
 
 void shnake::eat() { 
-    cell tail = cell(_tail[_tail.size()-1]);
+    cell tail = cell(_tail[_tail.size() - 1]);
     _tail.push_back(tail);
 }
+
+void shnake::change_dir(direction dir) {
+	_dir = dir;
+}
+
+int shnake::speed() { return _speed; }
+
+direction shnake::dir() { return _dir; }
 
 cell& shnake::head() { return _head; }
 

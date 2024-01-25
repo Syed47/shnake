@@ -5,9 +5,10 @@
 #include <string>
 #include <vector>
 #include <iostream>
+#include <thread>
+#include <chrono>
 
 #include "Shnake.h"
-#include "Board.h"
 
 class game {
 

@@ -22,8 +22,8 @@ void game::initGUI() {
         for (int j = 0, x = 0; j < _cols; ++j, x += _cell_size) {
             sf::RectangleShape cell(sf::Vector2f(_cell_size, _cell_size));
             cell.setPosition(sf::Vector2f(x, y));
-	        cell.setOutlineThickness(2);
-	        cell.setOutlineColor(sf::Color(21, 21, 21));
+	        // cell.setOutlineThickness(2);
+	        // cell.setOutlineColor(sf::Color(21, 21, 21));
             row.push_back(cell);
         }
         grid.push_back(row);
@@ -33,10 +33,9 @@ void game::initGUI() {
 
 void game::update() {
 	window.clear();
-	score.setFillColor(sf::Color::White);
     score.setString("Score: 0");
 	window.draw(score);
-
+	yena.move();
 	for (int i = 0, y = 0; i < _rows; ++i, y += _cell_size) {
 	    for (int j = 0, x = 0; j < _cols; ++j, x += _cell_size) {
 	    	if (i == yena.head().x() && j == yena.head().y()) {
@@ -54,28 +53,31 @@ void game::update() {
 void game::start() {
     while (window.isOpen()) {
         sf::Event event;
+
         while (window.pollEvent(event)) {
             if(event.type == sf::Event::Closed) {
                 window.close();
             } else if (event.type == sf::Event::KeyPressed) {
 			    if (event.key.code == sf::Keyboard::Up) {
-			    	yena.move(direction::UP);
+			    	yena.change_dir(direction::UP);
 			        std::cout << "Up key pressed" << std::endl;
 			    } else if (event.key.code == sf::Keyboard::Down) {
-			    	yena.move(direction::DOWN);
+			    	yena.change_dir(direction::DOWN);
 			        std::cout << "Down key pressed" << std::endl;
 			    } else if (event.key.code == sf::Keyboard::Left) {
-			    	yena.move(direction::LEFT);
+			    	yena.change_dir(direction::LEFT);
 			        std::cout << "Left key pressed" << std::endl;
 			    } else if (event.key.code == sf::Keyboard::Right) {
-			    	yena.move(direction::RIGHT);
+			    	yena.change_dir(direction::RIGHT);
 			        std::cout << "Right key pressed" << std::endl;
 			    } else {
 			        std::cout << "Not assigned yet." << std::endl;
 			    }
-			} 
+			}
+			
         }
         update();
+        std::this_thread::sleep_for(std::chrono::milliseconds(1000 / yena.speed()));
     }
 }
 

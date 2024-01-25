@@ -37,14 +37,19 @@ public:
 
 
 class shnake {
+    int _speed;
+    direction _dir;
     cell _head;
     std::vector<cell> _tail;
 
 public:
     shnake();
 
-    bool move(direction dir);
+    bool move();
     void eat();
+    void change_dir(direction dir);
+    int speed();
+    direction dir();
     cell& head();
     std::vector<cell>& tail();
     // bool isAlive() { return false; }
