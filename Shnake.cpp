@@ -17,7 +17,12 @@ int cell::y() const { return _y; }
 
 // SHNAKE
 
-shnake::shnake() : _speed(4), _head(cell(10, 10, cell_of::SHNAKE)), _tail(std::vector<cell>()) {}
+shnake::shnake() : 
+    _speed(4), 
+    _head(cell(10, 10, cell_of::SHNAKE)), 
+    _tail(std::vector<cell>()) {
+    _tail.emplace_back(cell(10, 11, cell_of::SHNAKE));
+}
 
 bool shnake::move() {
     int dx = 0, dy = 0, tx = _head.x(), ty = _head.y();
@@ -34,7 +39,6 @@ bool shnake::move() {
     }
     
     _head.xy(tx + dx, ty + dy);
-	std::cout << _tail.size() << std::endl;
 
     for (auto i = _tail.begin(); i < _tail.end(); ++i) {
         int ttx = (*i).x(); int tty = (*i).y();
@@ -44,20 +48,17 @@ bool shnake::move() {
     return true;
 }
 
-bool shnake::eat() { 
-    
+bool shnake::knoted() {
     for (auto i = _tail.begin(); i < _tail.end(); ++i) {
-    	std::cout << "In llop" << std::endl;
-
-    	if ((*i).x() == _head.x() && (*i).y() == _head.y()) {
-    		return false;
-    	}
+        if (i->x() == _head.x() && i->y() == _head.y()) {
+            return true;
+        }
     }
+    return false;
+}
 
-    _tail.emplace_back(_tail.empty() ? 
-    	cell(_head) : 
-    	cell(_tail[_tail.size() - 1]));
-    return true;
+void shnake::eat() { 
+    _tail.emplace_back(cell(_tail[_tail.size() - 1]));
 }
 
 void shnake::change_dir(direction dir) { _dir = dir; }

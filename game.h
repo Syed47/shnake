@@ -10,6 +10,12 @@
 
 #include "Shnake.h"
 
+
+#define K_UP sf::Keyboard::Up
+#define K_DOWN sf::Keyboard::Down
+#define K_LEFT sf::Keyboard::Left
+#define K_RIGHT sf::Keyboard::Right
+
 class game {
 
     std::vector<std::vector<sf::RectangleShape>> grid;
@@ -17,7 +23,7 @@ class game {
     sf::Font arial;
     sf::Text score;
 
-	int _rows, _cols, _cell_size;
+	int _rows, _cols, _cell_size, _score;
 	shnake yena;
 	cell food;
 

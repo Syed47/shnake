@@ -3,9 +3,7 @@
 #ifndef _PARAMS_
     #define ROWS 20
     #define COLS 20
-    #define CELL_SIZE 40
-    #define WIN_WIDTH (BLOCK_SIZE * ROWS)
-    #define WIN_HEIGHT (BLOCK_SIZE * COLS)
+    #define CELL_SIZE 20
 #endif
 
 
