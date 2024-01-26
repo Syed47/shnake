@@ -19,6 +19,7 @@ class game {
 
 	int _rows, _cols, _cell_size;
 	shnake yena;
+	cell food;
 
 public:
 	game(int rows, int cols, int cell_size);
@@ -26,6 +27,9 @@ public:
 	void initGUI();
 	void update();
 	void start();
+
+	void spawn_food();
+	void rebound_shnake();
 };
 
 #endif

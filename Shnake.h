@@ -46,7 +46,8 @@ public:
     shnake();
 
     bool move();
-    void eat();
+    bool eat();
+    void speed_up();
     void change_dir(direction dir);
     int speed();
     direction dir();
